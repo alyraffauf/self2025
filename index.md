@@ -91,41 +91,44 @@ marp: true
 
 ## Understanding Nix
 
-| Imperative                                  | Declarative                                                       |
-| ------------------------------------------- | ----------------------------------------------------------------- |
-| “Run these _steps_.”                        | “Describe the _state_.”                                           |
-| Hidden mutations in `/usr`, `/etc`, `$HOME` | Everything lives in `/nix/store/…` (content-addressed, read-only) |
-| Success depends on host history             | Build result depends **only** on declared inputs                  |
-| Manual roll-back (if any)                   | Automatic, atomic generations & rollbacks                         |
+| Imperative Systems                        | Nix (Declarative)                                                  |
+| ----------------------------------------- | ------------------------------------------------------------------ |
+| “Do this, then that...”                   | “Here’s what the system should look like.”                         |
+| Hidden changes in `/usr`, `/etc`, `$HOME` | Everything in `/nix/store` (immutable, content-addressed)          |
+| Dependent on machine state                | Same inputs = same results, every time                             |
+| Manual rollback (if you're lucky)         | Atomic generations and easy rollbacks (`nixos-rebuild --rollback`) |
+| Bash, Ansible, `apt`, `dnf`               | `nix`, `nixos-rebuild`, `home-manager`                             |
+| Scripts, Playbooks                        | \*.nix files, Flakes                                               |
 
 ---
 
-## What are flakes?
+## Flakes
 
-- A unified input/output schema for the Nix language.
-- Inputs -> logic -> outputs.
-- Inputs are locked at a specific git revision in a flake.lock file.
-- Flakes + nix allows us to compose reliably reproducible\* outputs.
+- A standardized way to define and share Nix projects.
+- Inputs (like `nixpkgs`) → configuration logic → reproducible outputs.
+- All inputs are pinned in `flake.lock` to exact hashes — no surprises on rebuild.
+- Outputs are cached in the Nix store — locally or remotely
+- Flakes make Nix builds **composable**, **shareable**, and **reproducible by default**.
 
 ---
 
 ## Flake Inputs
 
-- Other flakes
-- Remote git repositories
-- Any path (or git repo)
+- Other flakes (like `nixpkgs`)
+- Remote Git repositories (`github:user/repo`, `git+https://…`)
+- Tarballs and zip archives (e.g. plugin releases, configs).
+- Local directories (relative or absolute paths)
 
 ---
 
 ## Flake Outputs
 
-- Packages
-- Modules
-- Docker Containers
-- Development Shells
-- NixOS configurations
-- Home Manager configurations
-- Darwin (macOS) configurations
+- `packages`: apps, containers, files, tools, scripts.
+- `devShells`: reproducible development environments.
+- `nixosConfigurations`: full NixOS systems.
+- `homeConfigurations`: Home Manager setups.
+- `modules`: reusable app, system, or service configurations.
+- `apps`: things you can run with `nix run`.
 
 ---
 
@@ -167,6 +170,7 @@ marp: true
   };
 }
 ```
+
 ---
 
 ## DevShells
@@ -188,9 +192,11 @@ marp: true
   };
 }
 ```
+
 ---
 
 ## NixOS
+
 ```nix
 {
   description = "Minimal NixOS flake";
