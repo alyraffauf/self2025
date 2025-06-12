@@ -208,11 +208,6 @@ Mean time to recovery? What's that?
 ## NixOS
 
 ```nix
-{
-  description = "Minimal NixOS flake";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-  outputs = { self, nixpkgs }: {
     nixosConfigurations.self2025 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [{
@@ -225,8 +220,28 @@ Mean time to recovery? What's that?
         users.users.root.initialPassword = "nixos";
       }];
     };
-  };
-}
+```
+
+---
+
+## This Slide Deck
+
+```nix
+  packages."x86_64-linux".default = pkgs.stdenv.mkDerivation {
+        buildPhase = ''marp index.md'';
+
+        installPhase = ''
+          mkdir $out
+          cp index.html $out/
+          cp -r img $out/
+        '';
+
+        name = "stop-breaking-things";
+        nativeBuildInputs = [pkgs.marp-cli];
+        src = self;
+        version = "dev";
+      };
+    });
 ```
 
 ---
