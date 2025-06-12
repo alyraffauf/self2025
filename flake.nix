@@ -40,7 +40,6 @@
           } ${self.packages.${pkgs.system}.default}/index.html
         '';
       };
-
     in {
       default = {
         type = "app";
@@ -81,5 +80,10 @@
         ];
       };
     });
+
+    nixosConfigurations.self2025 = self.inputs.nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [./nixos/configuration.nix];
+    };
   };
 }
