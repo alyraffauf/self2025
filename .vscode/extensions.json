@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "dreamcatcher45.podmanager",
+        "esbenp.prettier-vscode",
+        "jnoortheen.nix-ide",
+        "mkhl.direnv",
+        "tamasfe.even-better-toml",
+    ]
+}
