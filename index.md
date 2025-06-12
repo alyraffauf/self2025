@@ -1,18 +1,27 @@
-## Stop Breaking Things:
+---
+title: Stop Breaking Things: A Gentle Introduction to NixOS in the Homelab
+description: Creating sustainable, reproducible infrastructure with Nix.
+author: Aly Raffauf
+keywords: nix, nixos, homelab, nixpkgs, flakes
+# url: https://marp.app/
+# image: https://marp.app/og-image.jpg
+---
 
-### A Gentle Introduction to NixOS in the Homelab
+# Stop Breaking Things:
 
-#### Aly Raffauf
+## A Gentle Introduction to NixOS in the Homelab
+
+### Aly Raffauf
 
 ---
 
-### The Problem
+## The Problem
 
 ![this is fine (room burning)](./img/thisisfine.png)
 
 ---
 
-### The Problem (2)
+## The Problem (2)
 
 - Things break.
 - We don't remember how to fix them.
@@ -22,7 +31,7 @@
 
 ---
 
-### What We Need
+## What We Need
 
 - lol
 - lol
@@ -30,11 +39,11 @@
 
 ---
 
-### The Solution(s)
+## The Solution(s)
 
 ---
 
-### Bash
+## Bash
 
 - Writing good Bash is really hard.
 - It doesn't scale well.
@@ -43,7 +52,7 @@
 
 ---
 
-### Ansible
+## Ansible
 
 - Looks declarative, but isn't really.
 - Not reliably reproducible.
@@ -56,7 +65,7 @@
 
 ---
 
-### What is Nix?
+## What is Nix?
 
 - A collision-free atomic package manager.
 - A functional build system.
@@ -65,7 +74,7 @@
 
 ---
 
-### Nix vs Nix vs Nixpkgs vs NixOS
+## Nix vs Nix vs Nixpkgs vs NixOS
 
 - Nix (the programming language)
 - Nix (the implemented package manager, interpreter, build system, daemon)
@@ -78,7 +87,7 @@
 
 ---
 
-### What are flakes?
+## What are flakes?
 
 - A unified input/output schema for the Nix language.
 - Inputs -> logic -> outputs.
@@ -87,14 +96,14 @@
 
 ---
 
-### Flake Inputs
+## Flake Inputs
 
 - Package repositories (e.g. nixpkgs)
 - Any path (or git repo)
 
 ---
 
-### Outputs
+## Outputs
 
 - Packages
 - Modules
@@ -105,7 +114,7 @@
 
 ---
 
-### Hello, world!
+## Hello, world!
 
 ```nix
 {
@@ -124,17 +133,17 @@
 
 ---
 
-### OCI Containers
+## OCI Containers
 
 ```nix
-docker = pkgs.dockerTools.buildImage {
- config.Cmd = "${pkgs.hello}/bin/hello";
-};
+  docker = pkgs.dockerTools.buildImage {
+    config.Cmd = "${pkgs.hello}/bin/hello";
+  };
 ```
 
 ---
 
-### Why?
+## Why?
 
 - Configure everything in a common language
 
