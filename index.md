@@ -185,7 +185,6 @@ marp: true
     devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       packages = [ nixpkgs.legacyPackages.x86_64-linux.hello ];
       shellHook = ''
-        echo "👋 Running hello..."
         hello
       '';
     };
