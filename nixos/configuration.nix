@@ -37,6 +37,7 @@
         isNormalUser = true;
         extraGroups = ["wheel"]; # sudo
         packages = with pkgs; [tree];
+        hashedPassword = "$6$AzmAQNIpHEqKP2JN$AMoD9vghC0b8eOERzKz5dnEslE08mpVoYwFUeichRNUiOdFf.Fwveu45/GtelVinUyg1QhWapdp001VwWQCc5/";
       };
     };
   };
