@@ -1,0 +1,44 @@
+name: build-slides
+
+on:
+  push:
+    paths:
+      - "**.md"
+      - "img/**"
+      - flake.nix
+      - flake.lock
+      - .github/workflows/build-slides.yml
+  workflow_dispatch: # allow manual runs
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  pdf:
+    name: Build slide html
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      actions: write # needed by upload-artifact on Forgejo
+
+    steps:
+      - name: ⬇️  Checkout
+        uses: actions/checkout@main
+
+      - name: 🛠️  Install Nix
+        # Determinate Systems' installer works on both GitHub & Forgejo
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: 📄 Build slides
+        run: |
+          nix build --accept-flake-config -o result
+          ls -R result
+
+      - name: 📦 Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: stop-breaking-things
+          path: result/**
+          if-no-files-found: error
