@@ -5,6 +5,7 @@ author: Aly Raffauf
 keywords: nix, nixos, homelab, nixpkgs, flakes
 # url: https://marp.app/
 # image: https://marp.app/og-image.jpg
+marp: true
 ---
 
 # Stop Breaking Things:
