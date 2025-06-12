@@ -1,4 +1,2 @@
-.direnv/
-.hugo_build.lock
-/public/
-/resources/_gen/
+.direnv
+result
