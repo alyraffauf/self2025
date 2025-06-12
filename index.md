@@ -42,7 +42,10 @@ Mean time to recovery? What's that?
 
 ---
 
-## The Solution(s)
+## The Solutions
+
+- Bash
+- Ansible
 
 ---
 
