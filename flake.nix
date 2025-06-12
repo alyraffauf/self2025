@@ -24,6 +24,30 @@
           };
         });
   in {
+    apps = forAllSystems ({pkgs}: let
+      openSlides = pkgs.writeShellApplication {
+        name = "open-slides";
+        runtimeInputs = with pkgs; [xdg-utils];
+
+        text = ''
+          #!/usr/bin/env bash
+          set -euo pipefail
+
+          ${
+            if pkgs.stdenv.hostPlatform.isDarwin
+            then "open"
+            else "xdg-open"
+          } ${self.packages.${pkgs.system}.default}/index.html
+        '';
+      };
+
+    in {
+      default = {
+        type = "app";
+        program = "${openSlides}/bin/open-slides"; # <- string path
+      };
+    });
+
     packages = forAllSystems ({pkgs}: {
       default = pkgs.stdenv.mkDerivation {
         buildPhase = ''
