@@ -72,12 +72,13 @@ marp: true
 - A functional build system.
 - A purely functional Turing-complete programming language.
 - A script-and-text-file orchestration system (with symlinks).
+- A composable linux distribution.
 
 ---
 
 ## Nix vs Nix vs Nixpkgs vs NixOS
 
-- Nix (the programming language)
+- Nix: a programming language.
 - Nix (the implemented package manager, interpreter, build system, daemon)
 - nixpkgs - a large monorepository of thousands of
 - NixOS - the linux-based
@@ -85,6 +86,17 @@ marp: true
 ---
 
 ![nixos vs nixpkgs vs nix](./img/nixpkgsisnotnixosisnotnix.png)
+
+---
+
+## Understanding Nix
+
+| Imperative                                  | Declarative                                                       |
+| ------------------------------------------- | ----------------------------------------------------------------- |
+| “Run these _steps_.”                        | “Describe the _state_.”                                           |
+| Hidden mutations in `/usr`, `/etc`, `$HOME` | Everything lives in `/nix/store/…` (content-addressed, read-only) |
+| Success depends on host history             | Build result depends **only** on declared inputs                  |
+| Manual roll-back (if any)                   | Automatic, atomic generations & rollbacks                         |
 
 ---
 
