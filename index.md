@@ -111,18 +111,20 @@ marp: true
 
 ## Flake Inputs
 
-- Package repositories (e.g. nixpkgs)
+- Other flakes
+- Remote git repositories
 - Any path (or git repo)
 
 ---
 
-## Outputs
+## Flake Outputs
 
 - Packages
 - Modules
 - Docker Containers
 - Development Shells
 - NixOS configurations
+- Home Manager configurations
 - Darwin (macOS) configurations
 
 ---
@@ -131,7 +133,7 @@ marp: true
 
 ```nix
 {
-  description = "A very basic flake";
+  description = "Hello, world! with nixpkgs";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -139,7 +141,6 @@ marp: true
 
   outputs = { self, nixpkgs }: {
     packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
   };
 }
 ```
@@ -149,9 +150,67 @@ marp: true
 ## OCI Containers
 
 ```nix
-  docker = pkgs.dockerTools.buildImage {
-    config.Cmd = "${pkgs.hello}/bin/hello";
+{
+  description = "Hello, world! with docker";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
+
+  outputs = { self, nixpkgs }: {
+    packages.x86_64-linux.dockerHello = nixpkgs.legacyPackages.x86_64-linux.dockerTools.buildImage {
+      name = "hello";
+      tag = "latest";
+      contents = [ nixpkgs.legacyPackages.x86_64-linux.hello ];
+      config.Cmd = [ "/bin/hello" ];
+    };
+  };
+}
+```
+---
+
+## DevShells
+
+```nix
+{
+  description = "Hello, world! devshell (auto-runs hello)";
+
+  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+  outputs = { self, nixpkgs }: {
+    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+      packages = [ nixpkgs.legacyPackages.x86_64-linux.hello ];
+      shellHook = ''
+        echo "👋 Running hello..."
+        hello
+      '';
+    };
+  };
+}
+```
+---
+
+## NixOS
+```nix
+{
+  description = "Minimal NixOS flake";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+  outputs = { self, nixpkgs }: {
+    nixosConfigurations.self2025 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [{
+        boot.loader.grub.device = "/dev/sda";
+        fileSystems."/" = {
+          device = "/dev/sda1";
+          fsType = "ext4";
+        };
+        services.openssh.enable = true;
+        users.users.root.initialPassword = "nixos";
+      }];
+    };
+  };
+}
 ```
 
 ---
