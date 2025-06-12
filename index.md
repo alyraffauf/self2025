@@ -36,16 +36,20 @@ Mean time to recovery? What's that?
 
 ## What We Need
 
-- lol
-- lol
-- fffkdbfjknvfj rkjndfkjdn jkdfs
+- A system we can rebuild from scratch — confidently.
+- Infrastructure that documents itself.
+- A way to version everything — configs, packages, environments.
+- Reproducible results — today, next month, on new hardware.
+- Rollbacks that *just work*.
+- Tooling that catches mistakes before they happen.
 
 ---
 
-## The Solutions
+## What We've Tried
 
 - Bash
 - Ansible
+- Docker
 
 ---
 
@@ -65,6 +69,15 @@ Mean time to recovery? What's that?
 - Final system state depends on execution order and host state.
 - YAML sucks.
 - Still no rollbacks, and testing can be painful.
+
+---
+
+## Docker
+
+- Great for shipping **applications**, not entire systems.
+- Depends heavily on **mutable base images**.
+- "FROM ubuntu:latest" = hope you cached it.
+- Dockerfiles are **imperative scripts in disguise**.
 
 ---
 
