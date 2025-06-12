@@ -1,78 +1,110 @@
-## Stop Breaking Things: 
+## Stop Breaking Things:
 
 ### A Gentle Introduction to NixOS in the Homelab
+
 #### Aly Raffauf
 
 ---
+
 ### The Problem
-![[Pasted image 20250611192215.png]]
+
+![this is fine (room burning)](./img/thisisfine.png)
 
 ---
+
 ### The Problem (2)
+
 - Things break.
 - We don't remember how to fix them.
 - We don't even know if they're broken.
 - It takes a long time to fix them.
 - Our mean time to recovery (MTTR) sucks.
---- 
+
+---
+
 ### What We Need
+
 - lol
 - lol
 - fffkdbfjknvfj rkjndfkjdn jkdfs
 
+---
+
+### The Solution(s)
 
 ---
-### The Solution(s)
----
+
 ### Bash
+
 - Writing good Bash is really hard.
 - It doesn't scale well.
 - BYO rollbacks.
 - writing good Bash is hard
+
 ---
+
 ### Ansible
+
 - Looks declarative, but isn't really.
 - Not reliably reproducible.
 - BYO rollbacks.
 - YAML
----
-
-![[Pasted image 20250611195002.png]]
 
 ---
+
+![nix logo](./img/nixlogo.png)
+
+---
+
 ### What is Nix?
+
 - A collision-free atomic package manager.
 - A functional build system.
 - A purely functional Turing-complete programming language.
 - A script-and-text-file orchestration system (with symlinks).
----
-### Nix vs Nix vs Nixpkgs vs  NixOS
-- Nix (the programming language)
-- Nix (the implemented package manager, interpreter, build system, daemon)
-- nixpkgs - a large monorepository of thousands of 
-- NixOS - the linux-based 
----
-![[Pasted image 20250611084813.png]]
 
 ---
+
+### Nix vs Nix vs Nixpkgs vs NixOS
+
+- Nix (the programming language)
+- Nix (the implemented package manager, interpreter, build system, daemon)
+- nixpkgs - a large monorepository of thousands of
+- NixOS - the linux-based
+
+---
+
+![nixos vs nixpkgs vs nix](./img/nixpkgsisnotnixosisnotnix.png)
+
+---
+
 ### What are flakes?
+
 - A unified input/output schema for the Nix language.
 - Inputs -> logic -> outputs.
 - Inputs are locked at a specific git revision in a flake.lock file.
-- Flakes + nix allows us to compose reliably reproducible* outputs.
+- Flakes + nix allows us to compose reliably reproducible\* outputs.
+
 ---
+
 ### Flake Inputs
+
 - Package repositories (e.g. nixpkgs)
 - Any path (or git repo)
+
 ---
+
 ### Outputs
+
 - Packages
 - Modules
 - Docker Containers
 - Development Shells
 - NixOS configurations
 - Darwin (macOS) configurations
---- 
+
+---
+
 ### Hello, world!
 
 ```nix
@@ -91,16 +123,19 @@
 ```
 
 ---
+
 ### OCI Containers
- ```nix
+
+```nix
 docker = pkgs.dockerTools.buildImage {
-  config.Cmd = "${pkgs.hello}/bin/hello";
+ config.Cmd = "${pkgs.hello}/bin/hello";
 };
 ```
 
 ---
 
 ### Why?
+
 - Configure everything in a common language
 
   lkj
