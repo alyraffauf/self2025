@@ -56,16 +56,16 @@ Mean time to recovery? What's that?
 ## Bash
 
 - Writing good Bash is hard — and debugging it is harder.
-- Scripts mutate the system with no memory or structure.
+- Scripts mutate the system with **no memory or structure**.
 - Works great until someone reruns it on a slightly different machine.
 - No built-in rollback, no state tracking, no reproducibility.
-- You are the package manager.
+- **You are the package manager**.
 
 ---
 
 ## Ansible
 
-- Looks declarative — but it's not truly deterministic.
+- Looks declarative — but it's not truly **deterministic**.
 - Final system state depends on execution order and host state.
 - YAML sucks.
 - Still no rollbacks, and testing can be painful.
