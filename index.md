@@ -16,19 +16,21 @@ marp: true
 
 ---
 
-## The Problem
+## How Server Maintenance Feels
 
 ![this is fine (room burning)](./img/thisisfine.png)
 
 ---
 
-## The Problem (2)
+## The Problem
 
-- Things break.
-- We don't remember how to fix them.
-- We don't even know if they're broken.
-- It takes a long time to fix them.
-- Our mean time to recovery (MTTR) sucks.
+- Stuff breaks.
+- We forget how we fixed it last time.
+- Sometimes we don’t even know it’s broken.
+- Fixes take too long.
+- Recovery is slow, manual, and painful.
+
+Mean time to recovery? What's that?
 
 ---
 
