@@ -40,7 +40,7 @@ Mean time to recovery? What's that?
 - Infrastructure that documents itself.
 - A way to version everything — configs, packages, environments.
 - Reproducible results — today, next month, on new hardware.
-- Rollbacks that *just work*.
+- Rollbacks that _just work_.
 - Tooling that catches mistakes before they happen.
 
 ---
@@ -88,19 +88,11 @@ Mean time to recovery? What's that?
 ## What is Nix?
 
 - A collision-free atomic package manager.
-- A functional build system.
+- A side effect free functional build system.
 - A purely functional Turing-complete programming language.
-- A script-and-text-file orchestration system (with symlinks).
-- A composable linux distribution.
-
----
-
-## Nix vs Nix vs Nixpkgs vs NixOS
-
-- Nix: a programming language.
-- Nix (the implemented package manager, interpreter, build system, daemon)
-- nixpkgs - a large monorepository of thousands of
-- NixOS - the linux-based
+- A script-and-text-file orchestration system.
+- A large repository of thousands of packages (`nixpkgs`).
+- A composable linux distribution (NixOS).
 
 ---
 
