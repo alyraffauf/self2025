@@ -6,6 +6,7 @@ keywords: nix, nixos, homelab, nixpkgs, flakes
 # url: https://marp.app/
 # image: https://marp.app/og-image.jpg
 marp: true
+paginate: true
 ---
 
 # Stop Breaking Things:
