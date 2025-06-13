@@ -14,6 +14,14 @@ marp: true
 
 ### Aly Raffauf
 
+![bg right 75%](./img/nixpridelogo.jpg)
+
+---
+
+## About Me
+
+- Self hosting since 2008.
+
 ---
 
 ## How Server Maintenance Feels
@@ -81,7 +89,7 @@ Mean time to recovery? What's that?
 
 ---
 
-![bg contain](./img/nixlogo.png)
+![bg contain 50%](./img/nixlogo.png)
 
 ---
 
