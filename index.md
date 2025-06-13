@@ -45,12 +45,12 @@ Mean time to recovery? What's that?
 
 ## What We Need
 
-- A system we can rebuild from scratch — confidently.
+- Deployments we can rebuild from scratch — confidently.
 - Infrastructure that documents itself.
-- A way to version everything — configs, packages, environments.
+- Version control — for configs, packages, services, environments.
 - Reproducible results — today, next month, on new hardware.
 - Rollbacks that _just work_.
-- Tooling that catches mistakes before they happen.
+- Resilient tooling that catches mistakes before they happen.
 
 ---
 
@@ -59,6 +59,10 @@ Mean time to recovery? What's that?
 - Bash
 - Ansible
 - Docker
+
+<!--
+There are many others, but let's focus on these three.
+-->
 
 ---
 
@@ -70,14 +74,22 @@ Mean time to recovery? What's that?
 - No built-in rollback, no state tracking, no reproducibility.
 - **You are the package manager**.
 
+![bg contain 60% left:50%](./img/bashlogo.png)
+
 ---
 
 ## Ansible
 
 - Looks declarative — but it's not truly **deterministic**.
 - Final system state depends on execution order and host state.
-- YAML sucks.
 - Still no rollbacks, and testing can be painful.
+- YAML sucks.
+
+![bg contain right:50%](./img/ansiblelogo.png)
+
+<!--
+Brings the system from an unknown state to another unknown state.
+-->
 
 ---
 
@@ -88,24 +100,41 @@ Mean time to recovery? What's that?
 - "FROM ubuntu:latest" = hope you cached it.
 - Dockerfiles are **imperative scripts in disguise**.
 
+![bg contain 200% left:50%](./img/dockerlogo.svg)
+
 ---
 
-![bg contain 50%](./img/nixlogo.png)
+## Nix
+
+I use NixOS btw.
+
+![bg contain 70% right:50%](./img/nixlogo.png)
+
+<!--
+And, if you're like me, you use NixOS (by the way).
+-->
 
 ---
 
 ## What is Nix?
 
-- A collision-free atomic package manager.
-- A side effect free functional build system.
+- A collision-free package manager.
+- A side effect free build system.
 - A purely functional Turing-complete programming language.
 - A script-and-text-file orchestration system.
-- A large repository of thousands of packages (`nixpkgs`).
-- A composable linux distribution (NixOS).
+- A large repository of packages.
+- A composable linux distro.
 
----
+![bg cover left:50%](./img/nixpkgsisnotnixosisnotnix.png)
 
-![bg cover](./img/nixpkgsisnotnixosisnotnix.png)
+<!--
+Talking about Nix can get confusing, because we're often conflating several different, but related, things.
+
+Nix - the package manager.
+Nix - the build system.
+NixOS - the linux distro.
+nixpkgs - the package repository.
+-->
 
 ---
 
@@ -116,7 +145,7 @@ Mean time to recovery? What's that?
 | “Do this, then that...”                   | “Here’s what the system should look like.”                                     |
 | Hidden changes in `/usr`, `/etc`, `$HOME` | Everything in `/nix/store` (immutable, content-addressed), symlinked elsewhere |
 | Dependent on machine state                | Same inputs = same results, every time                                         |
-| Manual rollback (if you're lucky)         | Atomic generations and easy rollbacks (`nixos-rebuild --rollback`)             |
+| Manual rollback (if you're lucky)         | Atomic generations and easy rollbacks                                          |
 | Bash, Ansible, `apt`, `dnf`               | `nix`, `nixos-rebuild`, `home-manager`                                         |
 | Scripts, Playbooks                        | \*.nix files, Flakes                                                           |
 
@@ -124,11 +153,17 @@ Mean time to recovery? What's that?
 
 ## Flakes
 
-- A standardized way to define and share Nix projects.
-- Inputs (like `nixpkgs`) → configuration logic → reproducible outputs.
-- All inputs are pinned in `flake.lock` to exact hashes — no surprises on rebuild.
+- A standardized way to define & share Nix projects.
+- Inputs → configuration logic → reproducible outputs.
+- All inputs are locked in`flake.lock` to exact hashes.
 - Outputs are cached in the Nix store — locally or remotely
 - Flakes make Nix builds **composable**, **shareable**, and **reproducible by default**.
+
+![bg cover right:50%](./img/nixflakesmeme.webp)
+
+<!--
+Meme source: https://fedi.astrid.tech/notice/AS7z9qW0q6SYs9LEsC
+-->
 
 ---
 
