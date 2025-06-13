@@ -21,7 +21,12 @@ paginate: true
 
 ## About Me
 
+- Using Linux since 2007.
 - Self hosting since 2008.
+- Building my own distros since 2009.
+- Writing package managers since 2010.
+- Occasional contributor to NixOS/nixpkgs and related projects.
+- Extremely hirable for cloud engineer/devop type roles.
 
 ---
 
