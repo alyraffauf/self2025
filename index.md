@@ -15,6 +15,9 @@ paginate: true
 
 ### Aly Raffauf
 
+[self2025.aly.codes](https://self2025.aly.codes)
+
+![height:200px](./img/slides.png)
 ![bg right 75%](./img/nixpridelogo.jpg)
 
 ---
