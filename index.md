@@ -18,7 +18,7 @@ marp: true
 
 ## How Server Maintenance Feels
 
-![this is fine (room burning)](./img/thisisfine.png)
+![](./img/thisisfine.png)
 
 ---
 
@@ -81,7 +81,7 @@ Mean time to recovery? What's that?
 
 ---
 
-![nix logo](./img/nixlogo.png)
+![bg contain](./img/nixlogo.png)
 
 ---
 
@@ -96,20 +96,20 @@ Mean time to recovery? What's that?
 
 ---
 
-![nixos vs nixpkgs vs nix](./img/nixpkgsisnotnixosisnotnix.png)
+![bg cover](./img/nixpkgsisnotnixosisnotnix.png)
 
 ---
 
 ## Understanding Nix
 
-| Imperative Systems                        | Nix (Declarative)                                                  |
-| ----------------------------------------- | ------------------------------------------------------------------ |
-| “Do this, then that...”                   | “Here’s what the system should look like.”                         |
-| Hidden changes in `/usr`, `/etc`, `$HOME` | Everything in `/nix/store` (immutable, content-addressed)          |
-| Dependent on machine state                | Same inputs = same results, every time                             |
-| Manual rollback (if you're lucky)         | Atomic generations and easy rollbacks (`nixos-rebuild --rollback`) |
-| Bash, Ansible, `apt`, `dnf`               | `nix`, `nixos-rebuild`, `home-manager`                             |
-| Scripts, Playbooks                        | \*.nix files, Flakes                                               |
+| Imperative Systems                        | Nix (Declarative)                                                              |
+| ----------------------------------------- | ------------------------------------------------------------------------------ |
+| “Do this, then that...”                   | “Here’s what the system should look like.”                                     |
+| Hidden changes in `/usr`, `/etc`, `$HOME` | Everything in `/nix/store` (immutable, content-addressed), symlinked elsewhere |
+| Dependent on machine state                | Same inputs = same results, every time                                         |
+| Manual rollback (if you're lucky)         | Atomic generations and easy rollbacks (`nixos-rebuild --rollback`)             |
+| Bash, Ansible, `apt`, `dnf`               | `nix`, `nixos-rebuild`, `home-manager`                                         |
+| Scripts, Playbooks                        | \*.nix files, Flakes                                                           |
 
 ---
 
@@ -250,7 +250,48 @@ Mean time to recovery? What's that?
 
 ---
 
+## My Homelab
+
+![bg right:50%](./img/homelab.jpeg)
+
+---
+
+## What Nix Lets Us Do
+
+- Evaluate before we build.
+- Build before we commit.
+- Test before we merge.
+- Commit before we deploy.
+
+In other words, **GitOps**.
+
+---
+
+## Nix Tooling
+
+| Tool               | What it does                               |
+| ------------------ | ------------------------------------------ |
+| `nix build`        | Build flake outputs                        |
+| `nix develop`      | Launch a dev shell with specified packages |
+| `nix flake check`  | Check flakes for syntax errors             |
+| `nix flake update` | Update flake inputs                        |
+| `nix run`          | Run an app from a flake                    |
+
+---
+
+## NixOS Tooling
+
+| Tool                              | What it does                                                                  |
+| --------------------------------- | ----------------------------------------------------------------------------- |
+| `nixos-rebuild switch`            | Build, switch to, and/or deploy NixOS generation                              |
+| `nixos-rebuild switch --rollback` | Roll back to previous configuration                                           |
+| `nixos-rebuild build-vm`          | Build a VM image of your NixOS configuration                                  |
+| `nixos-rebuild test`              | Build, switch to, and/or deploy a new generation, but don't add to bootloader |
+| `nixos-rebuild boot`              | Build and/or deploy a new generation, but don't switch to it until next boot  |
+
+---
+
 ## Fin
 
-![./img/website.png](./img/website.png)
+![bg right](./img/website.png)
 [www.aly.codes](https://aly.codes)
