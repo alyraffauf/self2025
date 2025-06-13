@@ -246,8 +246,11 @@ Mean time to recovery? What's that?
 
 ---
 
-## Why?
+## How I Use Nix to Not Break Things
 
-- Configure everything in a common language
+---
 
-  lkj
+## Fin
+
+![./img/website.png](./img/website.png)
+[www.aly.codes](https://aly.codes)
