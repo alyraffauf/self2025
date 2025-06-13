@@ -206,6 +206,28 @@ Meme source: https://fedi.astrid.tech/notice/AS7z9qW0q6SYs9LEsC
 
 ---
 
+
+```nix 
+aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
+├───devShells
+│   └───x86_64-linux
+│       └───default: development environment 'nix-shell'
+├───nixosConfigurations
+│   └───sootopolis: NixOS configuration
+├───nixosModules
+│   ├───nixos: NixOS module
+│   ├───snippets: NixOS module
+│   └───users: NixOS module
+├───overlays
+│   └───default: Nixpkgs overlay
+└───packages
+    └───x86_64-linux
+        ├───deployer: package 'deployer'
+        └───formatter: package 'formatter'
+```
+---
+
+
 ## Hello, world!
 
 ```nix
