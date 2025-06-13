@@ -26,13 +26,20 @@ paginate: true
 - Building my own distros since 2009.
 - Writing package managers since 2010.
 - Occasional contributor to NixOS/nixpkgs and related projects.
-- Extremely hirable for cloud engineer/devop type roles.
+
+<!--
+And, if you know anything about Nix, and by the end of this you certainly should, you'll see how we ended up here.
+-->
 
 ---
 
 ## How Server Maintenance Feels
 
 ![](./img/thisisfine.png)
+
+<!--
+The other reason we ended up here is because maintaing a server--one, two, 30, 50, 300--feels a lot like this.
+-->
 
 ---
 
@@ -342,5 +349,10 @@ In other words, **GitOps**.
 
 ## Fin
 
-![bg right](./img/website.png)
+Thank you!
+
+P.S. I am extremely hirable for cloud engineer and devop type roles. :)
+
 [www.aly.codes](https://aly.codes)
+
+![bg right](./img/website.png)
