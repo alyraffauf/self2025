@@ -330,32 +330,28 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 
 ---
 
-## My Homelab
+## Nix Tooling
 
-![bg right:50%](./img/homelab.jpeg)
-
----
-
-## The Machines
-
-- 7 NixOS servers across three 'data centers'.
-  - 5 local, 1 Hetzner, 1 AWS (usually).
-- 4 client laptops, all running NixOS
-- 3 architectures (x86_64-linux, aarch64-linux, aarch64-darwin).
-- 5 users.
-- Networked with Tailscale.
+| Option             | What it does                               |
+| ------------------ | ------------------------------------------ |
+| `nix build`        | Build flake outputs                        |
+| `nix develop`      | Launch a dev shell with specified packages |
+| `nix flake check`  | Check flakes for syntax errors             |
+| `nix flake update` | Update flake inputs                        |
+| `nix run`          | Run an app from a flake                    |
 
 ---
 
-![bg contain ](./img/glance.png)
+## `nixos-rebuild`
 
-<!--
-Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners for my CI, my website, and my Bluesky Personal Data Server.
--->
+- Instantly switch to a new system config, or stage it for next boot.
+- Test changes safely without touching the bootloader.
+- Build VM or cloud images from your exact config.
+- Deploy to or build on remote machines.
 
 ---
 
-## How I Use Nix to Not Break Things
+## ![bg contain](./img/nixos-rebuild.png)
 
 ---
 
@@ -370,27 +366,33 @@ In other words, **GitOps**.
 
 ---
 
-## Nix Tooling
+## My Homelab
 
-| Tool               | What it does                               |
-| ------------------ | ------------------------------------------ |
-| `nix build`        | Build flake outputs                        |
-| `nix develop`      | Launch a dev shell with specified packages |
-| `nix flake check`  | Check flakes for syntax errors             |
-| `nix flake update` | Update flake inputs                        |
-| `nix run`          | Run an app from a flake                    |
+![bg right:50%](./img/homelab.jpeg)
 
 ---
 
-## NixOS Tooling
+## The Machines
 
-| Tool                              | What it does                                                                  |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| `nixos-rebuild switch`            | Build, switch to, and/or deploy NixOS generation                              |
-| `nixos-rebuild switch --rollback` | Roll back to previous configuration                                           |
-| `nixos-rebuild build-vm`          | Build a VM image of your NixOS configuration                                  |
-| `nixos-rebuild test`              | Build, switch to, and/or deploy a new generation, but don't add to bootloader |
-| `nixos-rebuild boot`              | Build and/or deploy a new generation, but don't switch to it until next boot  |
+- 7 NixOS servers across three 'data centers'.
+  - 5 local, 1 Hetzner, 1 AWS (usually).
+- 4 client laptops.
+  - 3 running NixOS, 1 running nix-darwin.
+- 3 architectures (x86_64-linux, aarch64-linux, aarch64-darwin).
+- 5 users.
+- Networked with Tailscale.
+
+---
+
+![bg contain](./img/glance.png)
+
+<!--
+Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners for my CI, my website, and my Bluesky Personal Data Server.
+-->
+
+---
+
+## How I Use Nix to Not Break Things
 
 ---
 
