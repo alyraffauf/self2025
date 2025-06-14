@@ -54,7 +54,7 @@ The other reason we ended up here is because maintaing a server--one, two, 30, 5
 - Fixes take too long.
 - Recovery is slow, manual, and painful.
 
-Mean time to recovery? What's that?
+Mean time to recovery? Who knows!
 
 <!--
 Here's the problem. and if you're not already intimately familiar with the problem, oh my god you will be.
