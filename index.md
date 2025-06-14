@@ -268,27 +268,6 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 
 ---
 
-## DevShells
-
-```nix
-{
-  description = "Hello, world! devshell (auto-runs hello)";
-
-  inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-  outputs = { self, nixpkgs }: {
-    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      packages = [ nixpkgs.legacyPackages.x86_64-linux.hello ];
-      shellHook = ''
-        hello
-      '';
-    };
-  };
-}
-```
-
----
-
 ## NixOS
 
 ```nix
@@ -364,11 +343,13 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 
 In other words, **GitOps**.
 
+![bg contain 70% right:50%](./img/nixlogo.png)
+
 ---
 
 ## My Homelab
 
-![bg right:50%](./img/homelab.jpeg)
+![bg left:50%](./img/homelab.jpeg)
 
 ---
 
@@ -380,6 +361,7 @@ In other words, **GitOps**.
   - 3 running NixOS, 1 running nix-darwin.
 - 3 architectures (x86_64-linux, aarch64-linux, aarch64-darwin).
 - 5 users.
+- Named for places in Pokémon Ruby & Sapphire.
 - Networked with Tailscale.
 
 ---
@@ -393,6 +375,71 @@ Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners f
 ---
 
 ## How I Use Nix to Not Break Things
+
+---
+
+## Declared and Reusable Infrastructure
+
+- ~10,000 lines of Nix modules.
+- For the past two years, almost every config I've ever written is in a Nix module.
+- Apps, settings, services, boot loaders, kernel modules, fonts, WiFi networks in Nix.
+- Enabled on a host-by-host basis with a line or two of code.
+
+![bg 100% right:50%](./img/alycodes.png)
+
+<!--
+This sounds like a lot, but it's the result of 3 years of effort.
+
+Any time I need to configure something, I try to do it in the Nix way.
+
+Firefox? Nix. Git? Nix. VS Code? Nix. A complicated Pipewire filter-chain to make this laptop's speakers sound better than horrible? Nix.
+-->
+
+---
+
+![bg contain](./img/alycodes.png)
+
+<!--
+Modules can be dynamic, with their own options and tunings. They don't have to be static blocks of code.
+-->
+
+---
+
+## Continuous Integration
+
+- Every push triggers checks for eval and formatting errors.
+- Flake outputs are built automatically.
+- Build artifacts are cached.
+- Scheduled actions update `flake.lock`.
+- Nothing is merged until CI passes.
+
+![bg contain left:50%](./img/ci.png)
+
+<!--
+On every push, CI checks for evaluation and formatting errors, then builds every flake output. So we don't waste anything, the results (custom settings, packages, etc.) are cached.
+-->
+
+---
+
+## Automatic Deployments
+
+- Nightly updates from master.
+- Dependencies pulled from cache.
+- Builds distributed across the fleet.
+- Small systems built remotely.
+- Manual deployments do not touch the bootloader.
+
+![bg contain right:50%](./img/autoupgrade.png)
+
+---
+
+![bg contain](./img/autoupgrade.png)
+
+<!--
+This module is a wrapper around a module included in nixpkgs, with my complete settings.
+
+Set operation, reboots, etc.
+-->
 
 ---
 
