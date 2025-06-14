@@ -527,11 +527,11 @@ Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners f
 
 ---
 
-## Declared and Reusable Infrastructure
+## Reusable Infrastructure
 
 - ~10,000 lines of Nix modules.
 - For the past two years, almost every config I've written is in a Nix module.
-- Apps, settings, services, boot loaders, kernel modules, fonts, WiFi networks in Nix.
+- Apps, settings, services, bootloaders, kernel modules, fonts, WiFi networks in Nix.
 - Enabled on a host-by-host basis with a line or two of code.
 
 ![bg 100% right:50%](./img/alycodes.png)
@@ -583,7 +583,7 @@ On every push, CI checks for evaluation and formatting errors, then builds every
 ![bg contain right:50%](./img/autoupgrade.png)
 
 <!--
-There are many Nix deployment tools, many of which itnegrate with GitHub Actions and other CI tools.
+There are many Nix deployment tools, many of which integrate with GitHub Actions and other CI tools.
 
 I've written my own in Go, but I mainly rely on NixOS's built-in auto upgrade module.
 -->
@@ -600,12 +600,81 @@ Set operation, reboots, etc.
 
 ---
 
+## Declarative Backups
+
+![bg contain left:50%](./img/backups.png)
+
+- NixOS module for automatic restic backups to Backblaze B2.
+- Backups are on by default, no host collisions.
+- Old backups are pruned automatically.
+- Restore backups with a single command.
+
+<!--
+Now, contrary to the title of this presentation, things *will* break. That's a fact of life.
+
+That's why we have backups.
+-->
+
+---
+
+![bg contain](./img/backups.png)
+
+<!--
+Dynamic backups, if I move where my Forgejo state directory is, this module knows where to find it.
+-->
+
+---
+
+## Rewards
+
+- Decreased cognitive load.
+- Never shave a yak twice.
+- Sanity checks.
+- Deployments in minutes.
+- Nuke & pave whenever I want. No config drift, no data loss.
+
+![bg contain right:50%](./img/gitops.png)
+
+<!--
+What are the rewards for doing all this?
+
+Get it out of your head.
+
+Write one, deploy forever.
+
+If something changes, you get warnings that make sense.
+-->
+
+---
+
+## Next Steps: Pick a Nix!
+
+- CppNix vs. Deteminate vs Lix.
+- Nix works on any distro + macOS and Windows (WSL).
+- Write anywhere, deploy anywhere.
+
+![bg contain left:50%](./img/lix.svg)
+
+<!--
+CppNix development is in an odd place.
+
+NixOS has stayed on a prior version.
+
+Determinate Systems = corporate, defense contractor affiliated.
+
+Lix = lesbian furries, community-led project.
+
+Don't use CppNix on non-NixOS.
+-->
+
+---
+
 ## Q&A
 
 Thank you!
 
-P.S. I am extremely hirable for cloud engineer and devop type roles. :)
+P.S. I am extremely hirable for admin/cloud/devop roles. 😀
 
 [www.aly.codes](https://aly.codes)
 
-![bg right](./img/website.png)
+![bg contain right](./img/website.png)
