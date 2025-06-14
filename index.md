@@ -381,7 +381,7 @@ Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners f
 ## Declared and Reusable Infrastructure
 
 - ~10,000 lines of Nix modules.
-- For the past two years, almost every config I've ever written is in a Nix module.
+- For the past two years, almost every config I've written is in a Nix module.
 - Apps, settings, services, boot loaders, kernel modules, fonts, WiFi networks in Nix.
 - Enabled on a host-by-host basis with a line or two of code.
 
