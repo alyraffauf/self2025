@@ -206,8 +206,7 @@ Meme source: https://fedi.astrid.tech/notice/AS7z9qW0q6SYs9LEsC
 
 ---
 
-
-```nix 
+```nix
 aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 ├───devShells
 │   └───x86_64-linux
@@ -225,8 +224,8 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
         ├───deployer: package 'deployer'
         └───formatter: package 'formatter'
 ```
----
 
+---
 
 ## Hello, world!
 
@@ -331,13 +330,32 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 
 ---
 
-## How I Use Nix to Not Break Things
-
----
-
 ## My Homelab
 
 ![bg right:50%](./img/homelab.jpeg)
+
+---
+
+## The Machines
+
+- 7 NixOS servers across three 'data centers'.
+  - 5 local, 1 Hetzner, 1 AWS (usually).
+- 4 client laptops, all running NixOS
+- 3 architectures (x86_64-linux, aarch64-linux, aarch64-darwin).
+- 5 users.
+- Networked with Tailscale.
+
+---
+
+![bg contain ](./img/glance.png)
+
+<!--
+Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners for my CI, my website, and my Bluesky Personal Data Server.
+-->
+
+---
+
+## How I Use Nix to Not Break Things
 
 ---
 
