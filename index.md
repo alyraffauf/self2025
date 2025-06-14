@@ -22,16 +22,21 @@ paginate: true
 
 ---
 
-## About Me
+## `whoami`
 
+- Occasional contributor to NixOS/nixpkgs and related projects.
+- Using NixOS for ~3 years.
 - Using Linux since 2007.
 - Self hosting since 2008.
 - Building my own distros since 2009.
 - Writing package managers since 2010.
-- Occasional contributor to NixOS/nixpkgs and related projects.
 
 <!--
-And, if you know anything about Nix, and by the end of this you certainly should, you'll see how we ended up here.
+I'm a little...totalitarian.
+
+Self-hosting from a ThinkPad under the bed.
+
+I've always wanted a lot of control over my linux distros.
 -->
 
 ---
@@ -41,7 +46,7 @@ And, if you know anything about Nix, and by the end of this you certainly should
 ![](./img/thisisfine.png)
 
 <!--
-The other reason we ended up here is because maintaing a server--one, two, 30, 50, 300--feels a lot like this.
+And in that time, I've realized that maintaing a server--one, two, 30, 50, 300--still feels a lot like this.
 -->
 
 ---
@@ -49,6 +54,7 @@ The other reason we ended up here is because maintaing a server--one, two, 30, 5
 ## The Problem
 
 - Stuff breaks.
+- Why is this not working?
 - We forget how we fixed it last time.
 - Sometimes we don’t even know it’s broken.
 - Fixes take too long.
@@ -57,7 +63,7 @@ The other reason we ended up here is because maintaing a server--one, two, 30, 5
 Mean time to recovery? Who knows!
 
 <!--
-Here's the problem. and if you're not already intimately familiar with the problem, oh my god you will be.
+Here's how it goes.
 -->
 
 ---
@@ -71,16 +77,23 @@ Here's the problem. and if you're not already intimately familiar with the probl
 - Rollbacks that _just work_.
 - Resilient tooling that catches mistakes before they happen.
 
+<!--
+We need resilient systems that can be rebuilt from scratch, come already documented, and are version controlled.
+-->
+
 ---
 
-## What We've Tried
+## What We Have
 
 - Bash
 - Ansible
 - Docker
+- etc.
 
 <!--
-There are many others, but let's focus on these three.
+There's a lot of attempts at solving this problem, or subsets of it.
+
+Others exist (eg. imaging), but let's focus on these 3.
 -->
 
 ---
@@ -95,6 +108,10 @@ There are many others, but let's focus on these three.
 
 ![bg contain 60% left:50%](./img/bashlogo.png)
 
+<!--
+How many folks have used some funky collection of Bash scripts to manage their machines?
+-->
+
 ---
 
 ## Ansible
@@ -107,7 +124,11 @@ There are many others, but let's focus on these three.
 ![bg contain right:50%](./img/ansiblelogo.png)
 
 <!--
-Brings the system from an unknown state to another unknown state.
+Anyone using Ansible?
+
+Sometimes brings systems from an unknown state to another unknown state.
+
+Because you're not starting from scratch from the bootloader to the userland, drift is inevitable.
 -->
 
 ---
@@ -121,6 +142,14 @@ Brings the system from an unknown state to another unknown state.
 
 ![bg contain 200% left:50%](./img/dockerlogo.svg)
 
+<!--
+Docker is great for apps, not entire systems.
+
+Even bootable containers have some clear limitations.
+
+Dockerfiles are really just imperative sequences compiled into layers.
+-->
+
 ---
 
 ## Nix
@@ -131,6 +160,8 @@ I use NixOS btw.
 
 <!--
 And, if you're like me, you use NixOS (by the way).
+
+Or, if you're here, you're at least Nix-curious.
 -->
 
 ---
@@ -147,9 +178,8 @@ And, if you're like me, you use NixOS (by the way).
 ![bg cover left:50%](./img/nixpkgsisnotnixosisnotnix.png)
 
 <!--
-Talking about Nix can get confusing, because we're often conflating several different, but related, things.
-
 Nix - the package manager.
+Nix - the language.
 Nix - the build system.
 NixOS - the linux distro.
 nixpkgs - the package repository.
@@ -168,30 +198,54 @@ nixpkgs - the package repository.
 | Bash, Ansible, `apt`, `dnf`               | `nix`, `nixos-rebuild`, `home-manager`                                         |
 | Scripts, Playbooks                        | \*.nix files, Flakes                                                           |
 
+<!--
+Do this, then that vs. produce this.
+
+Systems are built from immutable derivations stored in the Nix store by hash, symlinked into place.
+
+Upgrades and rollbacks are non-destructive.
+
+Managed by nix, nixos-rebuild, darwin-rebuild, home-manager, etc.
+
+Anyone heard of Flakes?
+-->
+
 ---
 
 ## Flakes
 
 - A standardized way to define & share Nix projects.
 - Inputs → configuration logic → reproducible outputs.
-- All inputs are locked in`flake.lock` to exact hashes.
-- Outputs are cached in the Nix store — locally or remotely
+- All inputs are locked in `flake.lock` to exact hashes.
+- Outputs are cached in the Nix store — locally or remotely.
 - Flakes make Nix builds **composable**, **shareable**, and **reproducible by default**.
 
 ![bg cover right:50%](./img/nixflakesmeme.webp)
 
 <!--
 Meme source: https://fedi.astrid.tech/notice/AS7z9qW0q6SYs9LEsC
+
+Nix typically deployed from Flakes.
+
+Experimental feature, over 80% of Nix users use them.
+
+Declare inputs, declare outputs.
+
+Inputs locked by hash in a flake.lock file.
+
+Nix builds can be intensive, but results are hashed and can be uplaoded to a remote cache.
+
+Subsequent rebuilds are significantly faster.
 -->
 
 ---
 
 ## Flake Inputs
 
-- Other flakes (like `nixpkgs`)
-- Remote Git repositories (`github:user/repo`, `git+https://…`)
+- Other flakes (like `nixpkgs`).
+- Remote Git repositories (`github:user/repo`, `git+https://…`).
 - Tarballs and zip archives (e.g. plugin releases, configs).
-- Local directories (relative or absolute paths)
+- Local directories (relative or absolute paths).
 
 ---
 
@@ -202,7 +256,10 @@ Meme source: https://fedi.astrid.tech/notice/AS7z9qW0q6SYs9LEsC
 - `nixosConfigurations`: full NixOS systems.
 - `homeConfigurations`: Home Manager setups.
 - `modules`: reusable app, system, or service configurations.
-- `apps`: things you can run with `nix run`.
+
+<!---
+Modules can be dynamic and configured by-host after import.
+-->
 
 ---
 
@@ -225,6 +282,12 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
         └───formatter: package 'formatter'
 ```
 
+<!--
+Simplified overview of my flake based on its outputs.
+
+Gathered with the `nix flake show` command.
+-->
+
 ---
 
 ## Hello, world!
@@ -242,6 +305,12 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
   };
 }
 ```
+
+<!--
+The most trivial flake.
+
+Outputs an x86-64 build of the GNU Hello package
+-->
 
 ---
 
@@ -266,6 +335,10 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 }
 ```
 
+<!--
+You can also build Docker containers with Nix.
+-->
+
 ---
 
 ## NixOS
@@ -284,6 +357,15 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
       }];
     };
 ```
+
+<!--
+Extremely simple NixOS config.
+
+Bootloader
+Filesystem
+Openssh
+Temporary root password.
+-->
 
 ---
 
@@ -307,17 +389,51 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
     });
 ```
 
+<!--
+These slides are also built with a flake.
+
+buildPhase
+installPhase
+build and runtime dependencies
+source tree
+-->
+
 ---
 
-## Nix Tooling
+## Nix CLI
 
 | Option             | What it does                               |
 | ------------------ | ------------------------------------------ |
 | `nix build`        | Build flake outputs                        |
 | `nix develop`      | Launch a dev shell with specified packages |
-| `nix flake check`  | Check flakes for syntax errors             |
+| `nix flake check`  | Check flakes for errors                    |
 | `nix flake update` | Update flake inputs                        |
 | `nix run`          | Run an app from a flake                    |
+
+![bg contain right:40%](./img/nixcli.png)
+
+<!--
+Nix command line
+
+build
+run
+test (for evaluation and custom tests)
+updating flake inputs
+-->
+
+---
+
+![bg contain](./img/nixcli.png)
+
+<!--
+Building one of my servers remotely.
+On conference WiFi.
+BTW, fortree is aarch64-darwin and slateport is x86_64-linux.
+
+Then, checking the whole flake for eval errors.
+
+Note the trace.
+-->
 
 ---
 
@@ -328,9 +444,30 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 - Build VM or cloud images from your exact config.
 - Deploy to or build on remote machines.
 
+![bg contain left:50%](./img/nixos-rebuild.png)
+
+<!--
+How you switch between generations of your system config.
+
+Unlike other atomic/immutable distributions, you don't need to reboot.
+
+nixos-rebuild brings your running system to the desired state.
+
+(kernel updates require reboots)
+-->
+
 ---
 
-## ![bg contain](./img/nixos-rebuild.png)
+![bg contain](./img/nixos-rebuild.png)
+
+<!--
+Evaluates your flake.
+Build the system configuration.
+Decrypts my secrets with agenix.
+Sets up /etc
+Restarts/stops/starts services as-needed.
+Prints a store path to the system configuration.
+-->
 
 ---
 
@@ -344,6 +481,10 @@ aly@fortree ~/../nixcfg HEAD:master ❯❯❯ nix flake show --all-systems
 In other words, **GitOps**.
 
 ![bg contain 70% right:50%](./img/nixlogo.png)
+
+<!--
+Lets us realize GitOps workflows for our whole system.
+-->
 
 ---
 
@@ -364,11 +505,19 @@ In other words, **GitOps**.
 - Named for places in Pokémon Ruby & Sapphire.
 - Networked with Tailscale.
 
+<!--
+Ranges from a beefy Ryzen system to a 10 year old ThinkCentre to a Rapsberry Pi and a t2.micro on AWS.
+
+The same flake defines both my homelab, my cloud servers, and mine and my husband's personal devices, e.g. this laptop.
+-->
+
 ---
 
-![bg contain](./img/glance.png)
+![bg 80% contain](./img/glance.png)
 
 <!--
+So what do I host on these machines?
+
 Plex, Ombi, Immich, Vaultwarden, Karakeep, Forgejo (git forge), action runners for my CI, my website, and my Bluesky Personal Data Server.
 -->
 
@@ -392,7 +541,9 @@ This sounds like a lot, but it's the result of 3 years of effort.
 
 Any time I need to configure something, I try to do it in the Nix way.
 
-Firefox? Nix. Git? Nix. VS Code? Nix. A complicated Pipewire filter-chain to make this laptop's speakers sound better than horrible? Nix.
+Firefox? Nix. Git? Nix. VS Code? Nix.
+
+A complicated Pipewire filter-chain to make this laptop's speakers sound better than horrible? Nix.
 -->
 
 ---
@@ -431,12 +582,18 @@ On every push, CI checks for evaluation and formatting errors, then builds every
 
 ![bg contain right:50%](./img/autoupgrade.png)
 
+<!--
+There are many Nix deployment tools, many of which itnegrate with GitHub Actions and other CI tools.
+
+I've written my own in Go, but I mainly rely on NixOS's built-in auto upgrade module.
+-->
+
 ---
 
 ![bg contain](./img/autoupgrade.png)
 
 <!--
-This module is a wrapper around a module included in nixpkgs, with my complete settings.
+Here my module is a wrapper around a module included in nixpkgs, with my complete settings.
 
 Set operation, reboots, etc.
 -->
